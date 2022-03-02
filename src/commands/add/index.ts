@@ -11,26 +11,9 @@ export default class Add extends Command {
     '<%= config.bin %> <%= command.id %>',
   ]
 
-  static flags = {
-    // flag with a value (-n, --name=VALUE)
-    name: Flags.string({char: 'n', description: 'name to print'}),
-    // flag with no value (-f, --force)
-    force: Flags.boolean({char: 'f'}),
-  }
-
-  static args = [{name: 'file'}]
-
 
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(Add)
-
-    // let client = new CosmosClient({ endpoint: Utils.endpoint, key: Utils.key });
-    // const db = 'mdbsqlapi220226'
-    // const { database } = await client.databases.createIfNotExists({ id: db });
-    // console.log(database.id);
-    // const ctnr = 'mcntr220226'
-    // const { container } = await database.containers.createIfNotExists({ id: ctnr });
-    // console.log(container.id);
 
     let client = new CosmosClient({ endpoint: Utils.endpoint, key: Utils.key });
     const dbId = 'mdbsqlapi220226'

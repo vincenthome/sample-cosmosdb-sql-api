@@ -9,15 +9,6 @@ export default class Query extends Command {
     '<%= config.bin %> <%= command.id %>',
   ]
 
-  static flags = {
-    // flag with a value (-n, --name=VALUE)
-    name: Flags.string({char: 'n', description: 'name to print'}),
-    // flag with no value (-f, --force)
-    force: Flags.boolean({char: 'f'}),
-  }
-
-  static args = [{name: 'file'}]
-
   public async run(): Promise<void> {
     const {args, flags} = await this.parse(Query)
 
@@ -41,12 +32,12 @@ export default class Query extends Command {
     // Perform parameterized queries
     const { resources } = await container.items
       .query({
-        query: "SELECT * from c WHERE c.isCapitol = @isCapitol",
+        query: "SELECT * from c",
         parameters: [{ name: "@isCapitol", value: true }]
       })
       .fetchAll();
     for (const city of resources) {
-      console.log(`${city.name}, ${city.state} is a capitol `);
+      console.log(`${city.id}, ${city.name}, ${city.state}, ${city.isCapitol}`);
     }
 
     this.log(`done query`)
